@@ -14,14 +14,26 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
+     * Menyesuaikan nama tabel jika tidak menggunakan bentuk jamak standar (opsional).
+     */
+    protected $table = 'users';
+
+    /**
+     * Jika tabel kamu tidak memiliki kolom created_at dan updated_at.
+     */
+    public $timestamps = false;
+
+    /**
      * The attributes that are mass assignable.
-     *
+     * Disesuaikan dengan penambahan kolom 'email'.
+     * 
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -43,7 +55,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password' => 'hashed', // Password otomatis di-hash saat disimpan
         ];
     }
 }
